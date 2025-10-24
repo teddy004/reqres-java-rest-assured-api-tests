@@ -1,0 +1,19 @@
+# Normalize all text files to LF in the repository and let Git handle CRLF on checkout
+* text=auto
+
+# Mark these as binary
+*.png binary
+*.jpg binary
+*.gif binary
+*.jar binary
+
+# Keep these executable flags intact
+*.sh text eol=lf
+
+# Ensure important files use LF
+README.md text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.xml text eol=lf
+*.json text eol=lf
