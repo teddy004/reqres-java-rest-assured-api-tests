@@ -24,21 +24,12 @@
     </properties>
 
     <dependencies>
-        <!-- Selenium Java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
         </dependency>
 
-        <!-- Appium Java Client -->
-        <dependency>
-            <groupId>io.appium</groupId>
-            <artifactId>java-client</artifactId>
-            <version>${appium.version}</version>
-        </dependency>
-
-        <!-- Rest Assured for API testing -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
@@ -52,7 +43,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Jackson for POJO mapping -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -60,7 +50,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Cucumber + TestNG integration -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
@@ -73,32 +62,24 @@
             <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- TestNG -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- WireMock for local stubbing (optional) -->
         <dependency>
             <groupId>com.github.tomakehurst</groupId>
             <artifactId>wiremock-jre8</artifactId>
             <version>${wiremock.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- Rest Assured JSON Schema Validator -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>json-schema-validator</artifactId>
             <version>${restassured.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- SLF4J simple binding for test logs (avoids 'StaticLoggerBinder' NOP warning) -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -131,7 +112,6 @@
                         <include>**/*Tests.java</include>
                         <include>**/*IT.java</include>
                     </includes>
-                    <!-- Retry failed tests once to mitigate transient network flakiness -->
                     <rerunFailingTestsCount>1</rerunFailingTestsCount>
                 </configuration>
             </plugin>

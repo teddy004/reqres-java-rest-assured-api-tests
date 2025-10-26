@@ -70,7 +70,6 @@ public class UserService {
                 .andReturn();
     }
 
-    // New service methods
     public Response getResources() {
         return given()
                 .spec(RequestManager.getRequestSpec())

@@ -18,7 +18,7 @@ public class UserSteps {
     private Response response;
     private UserRequest payload;
     private AuthRequest authPayload;
-    private String createdUserId; // store id of created user for lifecycle
+    private String createdUserId; 
 
     @When("I request the users list")
     public void i_request_the_users_list() {
@@ -43,17 +43,14 @@ public class UserSteps {
     @When("I create the user")
     public void i_create_the_user() {
         response = userService.createUser(payload);
-        // If API responded with 401/403, skip the scenario to avoid failures in restricted environments
         skipIfAuthRequired(response);
-        // store created id if available
+        
         try {
             String id = response.jsonPath().getString("id");
             if (id != null && !id.isEmpty()) {
                 createdUserId = id;
             }
-        } catch (Exception ignored) {
-            // ignore if response has no id
-        }
+        } catch (Exception ignored) {}
     }
 
     @When("I update user id {string}")
@@ -82,7 +79,6 @@ public class UserSteps {
         skipIfAuthRequired(response);
     }
 
-    // Resource (unknown) endpoints
     @When("I request the resources list")
     public void i_request_the_resources_list() {
         response = userService.getResources();
@@ -93,7 +89,6 @@ public class UserSteps {
         response = userService.getResource(id);
     }
 
-    // Auth payload steps
     @Given("I have an auth payload with email {string} and password {string}")
     public void i_have_an_auth_payload_with_email_and_password(String email, String password) {
         this.authPayload = new AuthRequest(email, password);
@@ -139,10 +134,8 @@ public class UserSteps {
         Assert.assertNotNull(response, "Response is null");
         List<Object> dataList = response.jsonPath().getList("data");
         Assert.assertNotNull(dataList, "data element is missing");
-        // Ensure data is a non-empty array
         Assert.assertTrue(dataList.size() > 0, "data array is empty");
 
-        // Verify each item has a non-empty id (common practice)
         List<Object> ids = response.jsonPath().getList("data.id");
         Assert.assertNotNull(ids, "data.id is missing");
         for (Object idObj : ids) {
@@ -198,11 +191,10 @@ public class UserSteps {
 
     @Then("the response should contain job equal to {string}")
     public void the_response_should_contain_job_equal_to(String expectedJob) {
-        // reuse same check
+        
         the_response_should_contain_job(expectedJob);
     }
 
-    // New assertions aligned with ReqRes docs
     @Then("the response should contain createdAt")
     public void the_response_should_contain_createdAt() {
         Assert.assertNotNull(response, "Response is null");
@@ -219,7 +211,6 @@ public class UserSteps {
         Assert.assertFalse(updatedAt.isEmpty(), "updatedAt should not be empty");
     }
 
-    // Auth assertions
     @Then("the response should contain token")
     public void the_response_should_contain_token() {
         Assert.assertNotNull(response, "Response is null");
@@ -235,7 +226,6 @@ public class UserSteps {
         Assert.assertEquals(err, expectedError, "Unexpected error message");
     }
 
-    // Helper: skip scenario when remote returns 401/403 (common in environments that block write ops)
     private void skipIfAuthRequired(Response resp) {
         if (resp == null) return;
         int status = resp.getStatusCode();
@@ -245,7 +235,6 @@ public class UserSteps {
         }
     }
 
-    // Backwards-compatible helper name used earlier accidentally; keep for safety.
     private void skipIf_authAndSkipIfNeeded(Response resp) {
         skipIfAuthRequired(resp);
     }

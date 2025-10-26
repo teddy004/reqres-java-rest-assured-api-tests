@@ -23,7 +23,6 @@ public class RequestManager {
                 .setBaseUri(baseUri)
                 .setContentType(ContentType.JSON);
 
-        // Add x-api-key header only if explicitly configured via system property or env var.
         String apiKey = System.getProperty("reqres.api.key");
         if (apiKey == null || apiKey.isEmpty()) {
             apiKey = System.getenv("REQRES_API_KEY");
@@ -35,8 +34,6 @@ public class RequestManager {
         return builder.build();
     }
 
-    // For public API usage we consider the API key optional. If an env/prop is supplied
-    // the header will be sent; otherwise not.
     public static boolean isApiKeyConfigured() {
         String apiKey = System.getProperty("reqres.api.key");
         if (apiKey == null || apiKey.isEmpty()) {
